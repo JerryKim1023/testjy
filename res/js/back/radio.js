@@ -16,14 +16,13 @@
 // * This function loads the video for the Almighty Radio function
 
 
-// 맨 아래 라디오 버튼 누를 때 작동
 function loadAutoplayData(iteration) {
   autoplayLoading = true;
   autoplayVideos = [];
   autoplayVideoIteration = -1;
 
   console.log("Autoplay list at loadAutoplayData start: ", autoplayList);
-  
+
   // videos 배열이 비어있거나 유효한 iteration 값인지 확인
   if (videos.length > 0 && iteration >= 0 && iteration < videos.length) {
       if (autoplayList.length > 0) {
@@ -50,14 +49,13 @@ function loadAutoplayData(iteration) {
 
       dataFrame.onload = function() {
           console.log("Video is playing, loaded from baseAutoplayVideoId: " + baseAutoplayVideoId);
-          // 다음 재생할 영상을 로드하는 로직 추가
-          prepareNextVideo(baseAutoplayVideoId);
       };
 
   } else {
       console.error("Invalid iteration value or empty videos array.");
   }
 }
+
 
 // 다음 재생할 영상을 준비하는 함수
 function prepareNextVideo(currentVideoId) {
@@ -126,28 +124,38 @@ function prepareNextVideo(currentVideoId) {
   function addAutoplayVideo(base = videoIteration, option = '') {
     console.log("Calling addAutoplayVideo with base: " + base + " and option: " + option);
     console.log("Current autoplayList: ", autoplayList);
-    
-    if (!base) { base = videoIteration; } //conditional for uses that need option, yet not setting base
-    if (playlistAutoplay && !autoplayLoading && (videos.length > 0 || autoplayList)) {
-      if (!(autoplayVideos.length > 0) || option == 'reset') {
-        loadAutoplayData(base);
+  
+    // autoplayList가 제대로 설정되지 않았을 경우의 기본 처리
+    if (!autoplayList || autoplayList.length === 0) {
+      console.warn("Autoplay List is not properly set. Falling back to default video selection.");
+  
+      // 기본적으로 다음 동영상을 선택하여 재생
+      if (videos.length > base + 1) {
+        baseAutoplayVideoId = videos[base + 1][2];
+        playVideo(baseAutoplayVideoId);
+      } else {
+        console.error("No more videos available in the list.");
       }
-      else if (videoIteration === videoCounter || (autoplayList && !autoplayListOverride) || option == 'override') {
-        if (autoplayVideoIteration < autoplayVideos.length - 1) {
-          autoplayVideoIteration++;
-          console.log("Getting new video: " + autoplayVideos[autoplayVideoIteration] + " data");
-          getVideoData(autoplayVideos[autoplayVideoIteration]);
-        }
-        else if (!autoplayList && !autoplayListOverride) {
-          loadAutoplayData(base);
-        }
-        else {
-          //kill Almighty Radio after the playlist is loaded
-          playlistFeatures.autoplay();
-        }
+      return;
+    }
+  
+    // 정상적인 autoplayList 처리를 위해 기존 로직 유지
+    if (!(autoplayVideos.length > 0) || option == 'reset') {
+      loadAutoplayData(base);
+    } else if (videoIteration === videoCounter || (autoplayList && !autoplayListOverride) || option == 'override') {
+      if (autoplayVideoIteration < autoplayVideos.length - 1) {
+        autoplayVideoIteration++;
+        console.log("Getting new video: " + autoplayVideos[autoplayVideoIteration] + " data");
+        playVideo(autoplayVideos[autoplayVideoIteration]);
+      } else if (!autoplayList && !autoplayListOverride) {
+        loadAutoplayData(base);
+      } else {
+        // 플레이리스트가 끝나면 autoplay 기능을 종료
+        playlistFeatures.autoplay();
       }
     }
   }
+  
   
   // End Almighty Radio
   
