@@ -62,7 +62,7 @@ function quickSearch(query) {
                         'onStateChange': onSearchDataPlayerStateChange
                     }
                 });
-                searchDataFrame.setAttribute("src", "https://www.youtube.com/embed/?enablejsapi=1");
+                searchDataFrame.setAttribute("src", "https://www.youtube.com/embed/?enablejsapi=1&origin=https://jerrykim1023.github.io");
             } else if (quickSearchVideosIteration + 1 < quickSearchVideos.length) {
                 quickSearchVideosIteration++;
                 getVideoData(quickSearchVideos[quickSearchVideosIteration]);
