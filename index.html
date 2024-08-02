@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <!-- Copyright 2022-2024 Almighty All rights reserved -->
+
+  <title>Almighty</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portable, independent, web-based, simple streaming YouTube video queues and playlists for music videos, audiobooks, etc." />
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FortAwesome/Font-Awesome@5/css/all.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" />
+  
+  <!-- Icon Stuff -->
+  <link rel="shortcut icon" id="favicon" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_32_aspect.png" type="image/x-icon" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-startup-image" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_128_aspect.png">
+  <link rel="apple-touch-icon" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_128_aspect.png"/>
+  <link rel="apple-touch-icon-precomposed" sizes="128x128" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_128_aspect.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" sizes="196x196" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_196_aspect.png">
+  <link rel="shortcut icon" sizes="128x128" href="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_128_aspect.png">
+  
+  <!-- Meta tags for Open Graph Protocol -->
+  <meta property="og:title" id="ogTitle" content="광고끊김없는 무료 유튜브 재생" />
+  <meta property="og:url" content="https://almighty.xn--3e0b707e/" />
+  <meta property="og:image" content="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/icon_og_resized_aspect.png" />
+  
+    <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="res/css/style.css" type="text/css" />
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+<body>
+  <div id="dataFramesContainer"></div>
+    <header>
+        <h1 id="title">
+            <a href="">
+              <img id="logo" src="https://almighty-playlist.s3.ap-northeast-2.amazonaws.com/logo_resized_aspect.png" />
+            </a>
+        </h1>
+        <div id="inputBoxContainer">
+            <form action="javascript:input(0);" method="get" id="searchForm">
+              <input type="text" id="inputBox" />
+            </form>
+            <div id="searchProgress">
+                <div class="spinner">
+                  <div class="bounce1"></div>
+                  <div class="bounce2"></div>
+                  <div class="bounce3"></div>
+                </div>
+              </div>
+            </div>
+            <button id="saveButton" data-clipboard-text="https://almighty.한국/" onclick="saveButton();" title="Copy your playlist to clipboard"></button>
+            <span class="fas fa-columns headerButton" id="sbsButton" onclick="toggleSBS();" title="Toggle side-by-side view"></span>
+            <span class="fas fa-exchange" id="stationIcon" onclick="disconnectStation();" title="Almighty Station is connected. Click to disconnect..."></span>
+            <a class="hits" href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Falmighty.xn--3e0b707e&count_bg=%23FE9900&title_bg=%23555555&icon=youtubemusic.svg&icon_color=%23E7E7E7&title=%EB%B0%A9%EB%AC%B8%EC%9E%90%EC%88%98&edge_flat=false"/></a>
+          </header>  
+            <div id="main">
+                <div id="dropShadow"></div>
+                <div id="dropOverlay"><p>(유튜브 영상을 화면에 놓아주세요)</p></div>
+                <div id="searchResultsWindow" class="floatingMenu">
+                  <h2>Search Results:</h2>
+                  <div class="floatingMenuCloseButton" onclick="toggleMenu('searchResults');">Close</div>
+                  <div id="searchResults" class="floatingMenuContents"></div>
+                </div>
+            <div id="blurBackground"></div>
+            <form action="javascript:input(2);" method="get">
+             <input type="textbox" id="playlistNameBox" placeholder="광고끊김없는 무료 유튜브 플레이어(클릭하여 재생목록 이름을 적어주세요.)" title="Enter your playlist name" />
+            </form>
+            <table id="videosTable"></table>
+            <div id="links">
+              <a href="https://almightykorea.tistory.com/1" target="_blank">Almighty 웹 사용설명서</a> |
+              <a href="https://almightykorea.tistory.com/2" target="_blank">모바일 사용설명서</a> |
+              <a href="https://almightykorea.tistory.com/3" target="_blank">에러 및 주의사항</a> |
+              <br>
+              <a style="color:green;" href="https://almightylist.kr/">재생목록 가져오기</a>
+            </div>
+        </div>
+        <footer>
+            <div id="previousVideo" onclick="backVideo();" title="Back">
+              <div class="videoNameContainer">
+                <p class="videoName"></p>
+              </div>
+              <div class="videoImageContainer">
+                <div class="videoImageWrapper">
+                  <img class="videoImage" src="" />
+                  <span class="fas fa-backward"></span>
+                  <p class="videoTime"></p>
+                </div>
+              </div>
+            </div>
+            <div id="playlistInterface">
+                <div id="youtubeContainer">
+                  <span id="remotePauseIcon" class="fas fa-play"></span>
+                  <iframe id="youtube" src="" allowfullscreen></iframe>
+                </div>
+                <div id="currentVideoTiming">
+                  <span id="currentTime">0:00</span>
+                  <span id="progressContainer">
+                    <span id="progress" style="width:0%;"></span>
+                  </span>
+                  <span id="videoTime">0:00</span>
+                </div>
+              </div>
+              <div id="nextVideo" onclick="forwardVideo();" title="Forward">
+                <div class="videoImageContainer">
+                  <div class="videoImageWrapper">
+                    <img class="videoImage" src="" />
+                    <span class="fas fa-forward"></span>
+                    <p class="videoTime"></p>
+                  </div>
+                </div>
+                <div class="videoNameContainer">
+                  <p class="videoName"></p>
+                </div>
+              </div>
+              <div id="settings">
+                <span class="fas fa-arrow-circle-right" onclick="playlistFeatures.playNext();" title="눌러놓으면 현재노래 다음에 추가"></span>
+                <span class="fas fa-random" onclick="playlistFeatures.shuffle();" title="재생목록 섞기"></span>
+                <span class="fas fa-redo-alt" onclick="playlistFeatures.repeat();" title="재생목록 반복"></span>
+                <span class="fas fa-rss" onclick="playlistFeatures.autoplay();" title="비슷한 재생목록 찾기radio검색"></span>
+              </div>
+            </footer>
+            <div id="dialog"></div>
+                         <!--
+  <script>
+  //this is a standard dialog box for jquery that can be used to non-annoyingly get messages to users on-load
+  $("#dialog").dialog();
+  </script>
+  -->
+  <script src="res/js/front/initialize.js"></script>
+  <script src="res/js/front/youtube.js"></script>
+  <script src="res/js/front/share.js"></script>
+  <script src="res/js/front/events.js"></script>
+
+  <script src="res/js/back/global.js"></script>
+  <script src="res/js/back/base.js"></script>
+  <script src="res/js/back/playlistBack.js"></script>
+  <script src="res/js/back/playlistFront.js"></script>
+  <script src="res/js/back/data.js"></script>
+  <script src="res/js/back/progress.js"></script>
+  <script src="res/js/back/input.js"></script>
+  <script src="res/js/back/search.js"></script>
+  <script src="res/js/back/radio.js"></script>
+  <script src="res/js/back/station.js"></script>
+  <script src="res/js/back/toggles.js"></script>
+  <!-- <script src="res/js/front.js"></script>
+  <script src="res/js/back.js"></script> -->
+
+</body>
+</html>

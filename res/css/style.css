@@ -1,0 +1,802 @@
+/** Header **/
+h1 {
+    margin: 0;
+  }
+  #logo {
+    height: 45px;
+    margin: 10px 0px 0px 5px;
+  }
+  header {
+    background-color: rgba(185, 184, 184, 0.8) !important;
+    height: 65px;
+    left: 0;
+    display: none;
+    align-items: center;
+    top: 0;
+    width: 100%;
+  }
+  header,
+  .ui-autocomplete {
+    z-index: 1;
+  }
+  #inputBoxContainer {
+    margin-left: 15px;
+    width: calc(100% - 450px);
+    max-width: 600px;
+    position: relative;
+  }
+  #inputBox {
+    width: 100%;
+    padding: 5px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 3px black;
+  }
+  #saveButton {
+    margin-left: 25px;
+    padding: 5px 7px;
+    background-color: #fff;
+  }
+  .headerButton {
+    margin-left: 15px;
+    color: #fff;
+  }
+  #stationIcon {
+    color: #00ff00;
+    margin-left: 45px;
+    display: none;
+  }
+
+  .hits {
+    margin-left: auto !important;
+  }
+  @media (max-width: 600px){
+    .hits {
+      display : none;
+    }
+  }
+
+  /** Start Search Progress **/
+  #searchProgress {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    display: none;
+  }
+
+  /** Start Search Progress **/
+  #searchProgress {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    display: none;
+  }
+
+    /** From http://tobiasahlin.com/spinkit/ **/
+    .spinner {
+      /**
+      margin: 100px auto 0;
+      width: 70px;
+      **/
+      text-align: center;
+    }
+    .spinner > div {
+      /* changed from 18px */
+      width: 12px;
+      height: 12px;
+      background-color: #333;
+    
+      border-radius: 100%;
+      display: inline-block;
+      -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
+    }
+    @-webkit-keyframes sk-bouncedelay {
+      0%, 80%, 100% { -webkit-transform: scale(0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+    @keyframes sk-bouncedelay {
+      0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      } 40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+      }
+    }
+    /** End Search Progress **/
+    
+     /** Grouped rules **/
+  input,
+  button,
+  #playlistNameBox {
+    font-family: 'Roboto', sans-serif;
+  }
+  #inputBox,
+  #saveButton {
+    border: none;
+    font-size: 1em;
+  }
+  #saveButton,
+  .headerButton,
+  #stationIcon {
+    cursor: pointer;
+  }
+  
+  /** Hover shading rules **/
+  #saveButton:hover,
+  #previousVideo:hover,
+  #nextVideo:hover {
+    background: lightgrey !important;
+  }
+  .headerButton:hover,
+  #settings *:hover {
+    color: lightgrey;
+  }
+  
+  td,
+  #main,
+  #saveButton,
+  #youtube,
+  #previousVideo,
+  #previousVideo *,
+  #nextVideo,
+  #nextVideo *,
+  #settings,
+  .floatingMenu {
+    border-radius: 5px
+  }
+  
+    /** UN-SORTED RULES AS OF YET **/
+    #links {
+      display: none;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #body, 
+    #blurBackground {
+      /** GS theme
+      background-color: #f77f00;
+      **/
+      /** Merry Christmas! https://farm3.staticflickr.com/2407/2127348012_f2e5c18282_b.jpg **/
+      /** Earth view https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/ISS046-E-3699.JPG/1280px-ISS046-E-3699.JPG **/
+      /** Plane view https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ruine_Aggstein_02.JPG/1280px-Ruine_Aggstein_02.JPG **/
+      /** Space https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Veil_Nebula_-_NGC6960.jpg/1280px-Veil_Nebula_-_NGC6960.jpg
+      /** YellowStorm https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Orange_Spring_Mound_at_Mammoth_Hot_Springs.jpg/1280px-Orange_Spring_Mound_at_Mammoth_Hot_Springs.jpg**/
+      /** Hurricane Maria https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Storm.jpg/1280px-Storm.jpg **/
+      /** Happy Spring! https://upload.wikimedia.org/wikipedia/commons/9/92/Spring_in_Somerville%2C_New_Jersey.JPG **/
+      /** Happy Spring 2017! https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Spring_Field_in_Bethel%2C_Vermont.jpg/1280px-Spring_Field_in_Bethel%2C_Vermont.jpg **/
+      /** Happy Fall! https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Autumnnleaves.JPG/1280px-Autumnnleaves.JPG **/
+      /** Fall 2017 1st https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Flickr_-_Nicholas_T_-_Fall.jpg/1280px-Flickr_-_Nicholas_T_-_Fall.jpg **/
+      /** Return To Space 2018! https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Veil_Nebula_-_NGC6960.jpg/1280px-Veil_Nebula_-_NGC6960.jpg **/
+      /** Winter-like Spring 2018 https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Willow_Flats_area_and_Teton_Range_in_Grand_Teton_National_Park.jpg/1280px-Willow_Flats_area_and_Teton_Range_in_Grand_Teton_National_Park.jpg **/
+      /** Spring 2018 https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Crocus%28loz%29.JPG/1024px-Crocus%28loz%29.JPG **/
+      /** Lightning 2018 https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Port_and_lighthouse_overnight_storm_with_lightning_in_Port-la-Nouvelle.jpg/1280px-Port_and_lighthouse_overnight_storm_with_lightning_in_Port-la-Nouvelle.jpg **/
+      /** Fall 2018 https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Sorbus_alnifolia_%27Submollis%27_JPG1La.jpg/1280px-Sorbus_alnifolia_%27Submollis%27_JPG1La.jpg **/
+      /** City Winter 2018 https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sunset_Toronto_Skyline_Panorama_Crop_from_Snake_Island.jpg/1280px-Sunset_Toronto_Skyline_Panorama_Crop_from_Snake_Island.jpg **/
+      /** Christmas 2018 https://www.publicdomainpictures.net/pictures/240000/velka/christmas-background-1512410173MML.jpg **/
+      /** Winter 2019 https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Moravskoslezsk%C3%A9_Beskydy_-_zima_2014_%28by_Pudelek%29_01.JPG/1280px-Moravskoslezsk%C3%A9_Beskydy_-_zima_2014_%28by_Pudelek%29_01.JPG **/
+      /** Study room (not used yet) https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Abbotsford_House_Study_Room.jpg/1280px-Abbotsford_House_Study_Room.jpg **/
+      /**background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Veil_Nebula_-_NGC6960.jpg/1280px-Veil_Nebula_-_NGC6960.jpg") no-repeat center center fixed;
+      background-size: cover;**/
+    }
+    #blurBackground {
+      filter: blur(5px);
+      -webkit-filter: blur(5px);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+    }
+    footer {
+      background: rgba(185, 184, 184, 0.8);
+      bottom: 0;
+      height: 35%;
+      left: 0;
+      position: fixed;
+      text-align: center;
+      width: 100%;
+      display: none;
+    }
+    .floatingMenu h2 {
+      margin: 0;
+      height: 40px;
+    }
+    .floatingMenuCloseButton {
+      position: fixed;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .floatingMenuCloseButton:hover {
+      color: white;
+    }
+    .floatingMenu {
+      max-width: 600px;
+      width: 90%;
+      position: fixed;
+      background: grey;
+      height: 400px;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #2b2b2b;
+      box-shadow: 0px 0px 20px 1px black;
+      text-align: left;
+      padding: 10px;
+      color: #ccc;
+      display: none;
+    }
+    .floatingMenuContents {
+      overflow-y: auto;
+      height: calc(100% - 40px);
+    }
+    #dropShadow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: black;
+      background-color: rgba(0, 0, 0, 0.75);
+      display: none;
+    }
+    #dropOverlay {
+      position: fixed;
+      color: white;
+      font-size: 1.2em;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(0, -50%);
+      width: 50%;
+      margin-left: -25%;
+      display: none;
+    }
+    #connectStationBox {
+      width: 75%;
+      font-family: 'Roboto',sans-serif;
+    }
+    #main {
+      margin: 110px 20% calc(35vh + 50px); /* . */
+      padding: 10px;
+      text-align: center;
+      position: relative;
+      background: rgba(255,255,255,0.55);
+    }
+    #main.zen {
+      margin-bottom: 100vh !important;
+    }
+    table,
+    #playlistNameBox {
+      width: 95%
+    }
+    table {
+      font-size: 1.2em;
+      margin: 10px auto;
+    }
+    #links a {
+      color: black;
+    }
+    #playlistNameBox {
+      border: none;
+      font-size: 2em;
+      text-align: center;
+      background: none;
+    }
+    td {
+      position: relative;
+      padding: 5px;
+      cursor: move;
+    }
+    .tableLeft {
+      padding-right: 100px;
+    }
+    .selected td {
+      background: rgba(255, 131, 0, 0.4) !important
+    }
+    .radio td {
+      background: rgba(0, 255, 0, 0.3)
+    }
+    .videoError td {
+      background: rgba(255, 0, 0, 0.5)
+    }
+    #playlistInterface {
+      height: 95%;
+      width: 25%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+    }
+    #previousVideo,
+    #nextVideo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #youtubeContainer {
+      height: 90%;
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+    }
+    #remotePauseIcon {
+      color: white;
+      margin-top: 25%;
+      display: none;
+    }
+    #youtube {
+      display: none;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      border: 1px solid black;
+    }
+    #dataFramesContainer {
+      display: none;
+    }
+    .hideVideo {
+      opacity: 0;
+    }
+    #currentVideoTiming {
+      display: flex;
+      align-items: center;
+    }
+    #currentTime,
+    #videoTime {
+      color: #fff
+    }
+    #currentTime {
+      left: 0
+    }
+    #videoTime {
+      right: 0
+    }
+    #progressContainer {
+      border: 1px solid #333;
+      border-radius: 999px;
+      height: 4px;
+      overflow: hidden;
+      width: 100%;
+      margin: 0px 5px;
+    }
+    #playlistInterface,
+    #youtubeContainer,
+    #progressContainer {
+      display: inline-block;
+      z-index: 1;
+    }
+    #previousVideo,
+    #nextVideo {
+      display: flex;
+      padding: 5px;
+      width: 25%;
+      height: 40%;
+      cursor: pointer;
+    }
+    #previousVideo {
+      left: 5%;
+    }
+    #nextVideo {
+      right: 5%;
+    }
+    
+    /** Video Previews **/
+    .videoName, .videoImage, .videoTime {
+      opacity: 0;
+    }
+    .videoNameContainer {
+      width: 70%;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+    }
+    .videoImageContainer {
+      height: 100%;
+      display: flex;
+      width: 40%;
+      align-items: center;
+      background: black;
+    }
+    .videoImageWrapper {
+      width: 100%;
+      height: inherit;
+      display: flex;
+      position: relative;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .videoImage {
+      height: 100%;
+      position: absolute;
+    }
+    .videoName {
+      margin: 0;
+      max-height: 100%;
+      overflow: hidden;
+    }
+    .videoTime {
+      position: absolute;
+      bottom: 0;
+      right: 3px;
+      color: white;
+      margin: 0;
+      font-size: 0.8em;
+      text-shadow: 0px 1px 1px black;
+    }
+    #previousVideo .videoNameContainer {
+      margin-right: 5px;
+    }
+    #nextVideo .videoNameContainer {
+      margin-left: 5px;
+    }
+    /** End Video Previews **/
+    
+    #settings {
+      width: 160px;
+      height: 30px;
+      padding: 5px;
+      position: absolute;
+      bottom: -5px;
+      right: calc(30% - 162px);
+      border: 1px solid white;
+      cursor: default;
+      color: grey;
+    }
+    #settings .selected {
+      color: #f77f00;
+    }
+    #progress {
+      background-color: #f77f00;
+      border-radius: 999px;
+      display: block;
+      height: 100%;
+    }
+    #progress,
+    .tableButtons * {
+      -moz-transition: .2s;
+      -ms-transition: .2s;
+      -o-transition: .2s;
+      -webkit-transition: .2s;
+      transition: .2s;
+    }
+    .tableButtons {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100px;
+      text-align: right;
+    }
+    .tableButtons * {
+      opacity: .1;
+      cursor: pointer;
+    }
+    .tableButtons *:not(:last-child) {
+      padding-right: 10px;
+    }
+    .tableButtons *:first-child {
+      padding-left: 5px;
+    }
+    .tableButtons *:last-child {
+      padding-right: 5px;
+    }
+    .tableButtons *:hover {
+      opacity: 1;
+    }
+    .tableButtons .fa-play, .tableButtons .fa-rss {
+      font-size: 1.1em;
+      position: relative;
+      top: -3px;
+    }
+    .tableButtons .fa-times {
+      font-size: 1.5em;
+    }
+    #settings * {
+      font-size: 1.5em;
+      cursor: pointer;
+      padding: 2px;
+    }
+    .headerButton {
+      font-size: 2em;
+    }
+    .fa-backward, .fa-forward {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0px 1px 20px rgba(255, 255, 255, 1));
+      -webkit-filter: drop-shadow(0px 1px 20px rgba(255, 255, 255, 1));
+      font-size: 2em;
+    }
+    #videosTable tr {
+      cursor: pointer
+    }
+    .tableButton,
+    #videosTable tr {
+      cursor: pointer;
+    }
+    tr.placeholder {
+      background: red;
+      border: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+    tr.placeholder:before {
+      border: 5px solid transparent;
+      content: "";
+      height: 0;
+      left: -5px;
+      margin-top: -5px;
+      position: absolute;
+      width: 0;
+    }
+    
+    /** In-box Search Results **/
+    .searchResult {
+      display: flex;
+      padding: 5px;
+      cursor: pointer;
+      height: 25%;
+    }
+    .searchResult:hover {
+      background-color: #4B4B4B;
+    }
+    .searchResult .left, .searchResult .right {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .searchResult .left {
+      width: 75%;
+    }
+    .searchResult .right {
+      width: 25%;
+    }
+    .searchResult p {
+      margin: 0;
+      max-height: 100%;
+      overflow: hidden;
+    }
+    .searchResult img {
+      border-radius: 5px;
+      max-width: 100%;
+    }
+ 
+/** Mobile Interface **/
+@media (max-width: 600px) {
+  #logo {
+    height: 25px;
+    margin: 0px;
+  }
+  header {
+    height: auto !important;
+  }
+  #title {
+    font-size: 0em;
+  }
+  #inputBox, #saveButton {
+    font-size: 0.8em;
+  }
+  .headerButton,
+  #stationIcon {
+    font-size: 1.5em;
+  }
+  #settingsWindow {
+    width: 85%;
+  }
+  #inputBoxContainer {
+    margin-left: 5px !important;
+    width: calc(100% - 195px) !important;
+  }
+  #saveButton {
+    margin-left: 15px !important;
+  }
+  #settings {
+    height: 20px;
+    width: 130px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 0.8em;
+    background: rgba(0,0,0,0.5);
+  }
+
+  /**사이드바 사이즈 조절**/
+  .sidebar{
+    position: fixed;
+    right: -55px;
+    width: 54px;
+    height: 100%;
+    background: #042331;
+    transition: all .5s ease;
+}
+.sidebar header{
+    font-size: 6px;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    background: #063146;
+    user-select: none;
+}
+.sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 14px;
+    font-size: 20px;
+    color: white;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+    transition: .4s;
+    cursor: grabbing;
+}
+ul li:hover a{
+    padding-left: 17px;
+}
+.sidebar ul a i{
+    margin-right: 4px;
+}
+#check{
+    display: none;
+}
+ label #btn, label #cancel{
+     position: absolute;
+     cursor: pointer;
+     background: #042331;
+     border-radius: 1px;
+ }
+label #btn{
+    right: 20px;
+    top: 3.5px;
+    font-size: 15px;
+    color: white;
+    padding: 6px 12px;
+    transition: all .5s ease;
+}
+label #cancel{
+    z-index: 1111;
+    right: -45px;
+    top: 4px;
+    font-size: 10px;
+    color: #0a5275;
+    padding: 4px 9px;
+    transition: all .5s
+}
+#check:checked ~ .sidebar{
+    right: 0;
+}
+#check:checked ~ label #btn{
+    right: 250px;
+    opacity: 0;
+    pointer-events: none;
+}
+#check:checked ~ label #cancel{
+    right: 10px;
+}
+#check:checked ~ section{
+    margin-right: 55px;
+}
+section{
+    background: url(night2.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: all .5s;
+}
+/** 여기까지 사이드바 사이즈 조절**/
+  .headerButton {
+    margin-left: 5px !important;
+  }
+  #blurBackground {
+    display: none !important;
+  }
+  body, #main {
+    background: none;
+  }
+  #main {
+    margin: 35px 0px calc(35vh + 50px) !important;
+    padding: 5px 0px 5px 0px !important;
+    font-size: 0.8em;
+  }
+  #table, #playlistNameBox {
+    width: 100% !important;
+  }
+  #playlistNameBox {
+    font-size: 1.2em !important;
+  }
+  body {
+    margin: 0;
+  }
+  #previousVideo, #nextVideo, .videoImageContainer {
+    background: none !important;
+  }
+  #previousVideo, #nextVideo {
+    z-index: 1;
+    top: 30%;
+    transform: translateY(-30%);
+  }
+  #previousVideo {
+    left: 0 !important;
+  }
+  #nextVideo {
+    right: 0 !important;
+  }
+  .videoNameContainer, .videoImage, .videoTime {
+    display: none;
+  }
+  .videoImageContainer {
+    width: 100%;
+  }
+  .fa-backward, .fa-forward, .fa-cog * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  #playlistInterface,
+  #youtubeContainer,
+  #progressContainer {
+    z-index: initial;
+  }
+  #playlistInterface {
+    height: 100%;
+    width: 99%;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-right: auto;
+    transform: initial;
+  }
+  #youtubeContainer {
+    height: 85%;
+  }
+  #saveButton:hover,
+  #previousVideo:hover,
+  #nextVideo:hover {
+    background: initial !important;
+  }
+  .headerButton:hover *:hover {
+    color: white !important;
+  }
+  #sbsButton {
+    display: none;
+  }
+}
+
+#videosTable tr {
+  user-select: all;
+}
