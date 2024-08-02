@@ -16,59 +16,36 @@
 // * This function loads the video for the Almighty Radio function
 
 
+// 맨 아래 라디오 버튼 누를 때 작동
 function loadAutoplayData(iteration) {
-  autoplayLoading = true;
-  autoplayVideos = [];
-  autoplayVideoIteration = -1;
+    autoplayLoading = true;
+    autoplayVideos = [];
+    autoplayVideoIteration = -1;
 
-  console.log("Autoplay list at loadAutoplayData start: ", autoplayList);
-
-  // videos 배열이 비어있거나 유효한 iteration 값인지 확인
-  if (videos.length > 0 && iteration >= 0 && iteration < videos.length) {
-      if (autoplayList.length > 0) {
-          console.log("Autoplay List is set.");
-          baseAutoplayVideoId = autoplayList[0];
-      } else {
-          console.log("Autoplay List is not set, using fallback.");
-          $("tr").removeClass("radio");
-          highlight(iteration, "radio", false);
-          baseAutoplayVideoId = videos[iteration][2];
+    console.log("Autoplay list at loadAutoplayData start: ", autoplayList);
+    
+    if (autoplayList > 0) {
+      console.log("Autoplay List is set."); // Debugging///// 여기가 작동 안함. autoplayList가 flase 값 최초 변수 선언으로 넘어와서 else로 넘어감
+      baseAutoplayVideoId = autoplayList[0];
+    }
+    else {
+      console.log("Autoplay List is not set, using fallback."); // Debugging
+      $("tr").removeClass("radio");
+      highlight(iteration, "radio", false);
+      baseAutoplayVideoId = videos[iteration][2];
+    }
+    let dataFrame = document.createElement("iframe");
+    dataFrame.setAttribute("id", "radioDataFrame");
+    dataFrame.setAttribute("src", "");
+    document.getElementById("dataFramesContainer").appendChild(dataFrame);
+    radioDataPlayer = new YT.Player('radioDataFrame', {
+      events: {
+        'onReady': onRadioDataPlayerReady,
+        'onStateChange': onRadioDataPlayerStateChange
       }
-
-      // 기존 YT.Player 대신, 직접 iframe을 사용하여 동영상 재생
-      let dataFrame = document.getElementById("radioDataFrame");
-
-      if (!dataFrame) {
-          dataFrame = document.createElement("iframe");
-          dataFrame.setAttribute("id", "radioDataFrame");
-          document.getElementById("dataFramesContainer").appendChild(dataFrame);
-      }
-
-      // videoId를 기준으로 다음 영상을 자동으로 재생하도록 설정
-      dataFrame.setAttribute("src", "https://www.youtube.com/embed/" + baseAutoplayVideoId + "?autoplay=1&enablejsapi=1&rel=1");
-
-      dataFrame.onload = function() {
-          console.log("Video is playing, loaded from baseAutoplayVideoId: " + baseAutoplayVideoId);
-      };
-
-  } else {
-      console.error("Invalid iteration value or empty videos array.");
+    });
+    dataFrame.setAttribute("src", "https://www.youtube.com/embed/" + baseAutoplayVideoId + "?enablejsapi=1");
   }
-}
-
-
-// 다음 재생할 영상을 준비하는 함수
-function prepareNextVideo(currentVideoId) {
-  console.log("Preparing next video based on current video ID: " + currentVideoId);
-
-  // currentVideoId를 기반으로 다음 추천 영상을 가져오기 위한 로직
-  // YouTube의 자동 재생 기능을 활용하여 다음 영상을 자동으로 재생하도록 설정
-  let dataFrame = document.getElementById("radioDataFrame");
-  dataFrame.onload = function() {
-      // 로드된 iframe에서 자동으로 다음 영상을 재생
-      console.log("Next video is ready to be played.");
-  };
-}
   
 
   // * This function cues the playlist for use in the next function
@@ -124,38 +101,28 @@ function prepareNextVideo(currentVideoId) {
   function addAutoplayVideo(base = videoIteration, option = '') {
     console.log("Calling addAutoplayVideo with base: " + base + " and option: " + option);
     console.log("Current autoplayList: ", autoplayList);
-  
-    // autoplayList가 제대로 설정되지 않았을 경우의 기본 처리
-    if (!autoplayList || autoplayList.length === 0) {
-      console.warn("Autoplay List is not properly set. Falling back to default video selection.");
-  
-      // 기본적으로 다음 동영상을 선택하여 재생
-      if (videos.length > base + 1) {
-        baseAutoplayVideoId = videos[base + 1][2];
-        playVideo(baseAutoplayVideoId);
-      } else {
-        console.error("No more videos available in the list.");
-      }
-      return;
-    }
-  
-    // 정상적인 autoplayList 처리를 위해 기존 로직 유지
-    if (!(autoplayVideos.length > 0) || option == 'reset') {
-      loadAutoplayData(base);
-    } else if (videoIteration === videoCounter || (autoplayList && !autoplayListOverride) || option == 'override') {
-      if (autoplayVideoIteration < autoplayVideos.length - 1) {
-        autoplayVideoIteration++;
-        console.log("Getting new video: " + autoplayVideos[autoplayVideoIteration] + " data");
-        playVideo(autoplayVideos[autoplayVideoIteration]);
-      } else if (!autoplayList && !autoplayListOverride) {
+    
+    if (!base) { base = videoIteration; } //conditional for uses that need option, yet not setting base
+    if (playlistAutoplay && !autoplayLoading && (videos.length > 0 || autoplayList)) {
+      if (!(autoplayVideos.length > 0) || option == 'reset') {
         loadAutoplayData(base);
-      } else {
-        // 플레이리스트가 끝나면 autoplay 기능을 종료
-        playlistFeatures.autoplay();
+      }
+      else if (videoIteration === videoCounter || (autoplayList && !autoplayListOverride) || option == 'override') {
+        if (autoplayVideoIteration < autoplayVideos.length - 1) {
+          autoplayVideoIteration++;
+          console.log("Getting new video: " + autoplayVideos[autoplayVideoIteration] + " data");
+          getVideoData(autoplayVideos[autoplayVideoIteration]);
+        }
+        else if (!autoplayList && !autoplayListOverride) {
+          loadAutoplayData(base);
+        }
+        else {
+          //kill Almighty Radio after the playlist is loaded
+          playlistFeatures.autoplay();
+        }
       }
     }
   }
-  
   
   // End Almighty Radio
   
