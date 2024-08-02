@@ -55,22 +55,27 @@ function urlValidate(url) {
 // * If a YouTube video URL load video to playlist, if a Almighty playlist append it to the current one, if none of the above load search
 
 function input(type) {
-    // If playlist input
+    //if playlist input
     if (type === 2) {
         let playlistNameBox = $("#playlistNameBox").val();
         $("#inputBox").focus();
         sendStation("playlistnamechange," + playlistNameBox);
         if (playlistNameBox !== "") {
             videos[0] = encodeURIComponent(playlistNameBox).replace(/%20/g, " ");
-        } else {
+        }
+        else {
             videos[0] = undefined;
         }
         setPlaylist();
-    } else {
+    }
+    else {
         let inputBox = $("#inputBox").val();
         if (inputBox !== "") {
             let url = urlValidate(inputBox);
             let option = inputBox.match(/^-option (.+?)( .+?)?$/i);
+
+            //let ua = navigator.userAgent.toLowerCase();
+            //let isAndroid = ua.indexOf("android") > -1;
 
             if (option) {
                 switch (option[1]) {
@@ -83,7 +88,8 @@ function input(type) {
                     case "background":
                         if (typeof option[2] != 'undefined') {
                             $("body, #blurBackground").css("background", option[2]);
-                        } else {
+                        }
+                        else {
                             alert("No background color or image specified");
                         }
                         break;
@@ -94,11 +100,13 @@ function input(type) {
                         alert("Sorry, but that option does not exist\n\nCheck with the list of Almighty options on GitHub");
                 }
                 $("#inputBox").val("").attr("placeholder", placeholder);
-            } else if (url) {
+            }
+            else if (url) {
                 if (url[0] === "youtube") {
                     inputBox = url[1];
                     getVideoData(inputBox);
                     $("#inputBox").val("").attr("placeholder", loadingPlaceholder);
+                    /***REVERT TO POPUP DUE TO YOUTUBE***/
                     if (typeof popup !== "undefined") {
                         if (popupClose === true) {
                             dropOverlay.close();
@@ -107,14 +115,18 @@ function input(type) {
                                 hotkeyPopupClose = false;
                                 togglePopupClose();
                             }
-                        } else {
+                        }
+                        else {
                             popup.focus();
                         }
                     }
-                } else if (url[0] === "Almighty") {
+                }
+                else if (url[0] === "Almighty") {
                     appendPlaylist(url[1]);
                     $("#inputBox").val("").attr("placeholder", placeholder);
-                } else if (url[0] === "playlist") {
+                }
+                else if (url[0] === "playlist") {
+                    //turn on pause so that getVideoData doesn't try to play each video while loop-loading
                     videoPaused = true;
                     if (playlistAutoplay) {
                         playlistFeatures.autoplay();
@@ -122,33 +134,39 @@ function input(type) {
                     autoplayList = url[1];
                     playlistFeatures.autoplay();
                     $("#inputBox").val("").attr("placeholder", placeholder);
-                } else if (url[0] === "image") {
+                } 
+                else if (url[0] === "image") { //배경화면 맞추는 거 손보기
                     setBackground(url[1]);
                     $("#inputBox").val("").attr("placeholder", placeholder);
                 }
-            } else if (inputBox.indexOf("\\") === -1) {
+            } 
+            else if (inputBox.indexOf("\\") === -1) {
                 if (inputBox.slice(-2) === " l") {
                     inputBox = inputBox + "yric";
                 }
-                inBoxSearch = true;
-                quickSearch(inputBox).then(() => {
-                    $("#inputBox").val("").attr("placeholder", loadingPlaceholder).blur();
-                }).catch(error => {
-                    console.error("Quick search failed: ", error);
-                    $("#inputBox").val("").attr("placeholder", "Error occurred").blur();
-                });
+                /***REVERT TO POPUP***/
+                popup = window.open("https://www.youtube.com/results?search_query=" + inputBox.replace(/ /g, "+"), "YouTube", "height=500,width=800");
+                dropOverlay.open();
+
+                function checkIfClosed() {
+                    if (popup.closed) {
+                        dropOverlay.close();
+                        clearInterval(checkIfClosedTimer);
+                    }
+                }
+                let checkIfClosedTimer = setInterval(checkIfClosed, 500);
+                /******/
+                //REVERT TO POPUP inBoxSearch = true;
+                //REVERT TO POPUP quickSearch(inputBox);
+                //$("#inputBox").val("").attr("placeholder", loadingPlaceholder).blur();
                 $("#inputBox").blur().focus();
-            } else {
+            } 
+            else {
                 inputBox = inputBox.replace("\\", "");
                 if (inputBox.slice(-2) === " l") {
                     inputBox = inputBox + "yric";
                 }
-                quickSearch(inputBox).then(() => {
-                    $("#inputBox").val("").attr("placeholder", loadingPlaceholder).blur();
-                }).catch(error => {
-                    console.error("Quick search failed: ", error);
-                    $("#inputBox").val("").attr("placeholder", "Error occurred").blur();
-                });
+                quickSearch(inputBox);
             }
         }
     }

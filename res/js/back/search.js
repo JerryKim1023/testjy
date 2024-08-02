@@ -37,42 +37,52 @@ function addSearchResult(name, id) {
   
   // * This function loads the video for the Quick Search functionality
   
-function quickSearch(query) {
-    return new Promise((resolve, reject) => {
-        try {
-            // 기존 quickSearch 코드
-            if (!inBoxSearch && quickSearchVideosIteration + 1 < quickSearchVideos.length) {
-                $("#inputBox").val("").attr("placeholder", loadingPlaceholder);
-            }
-            if (query !== "") {
-                $("#searchProgress").css("display", "flex");
-
-                quickSearchQuery = query;
-                let searchDataFrame = document.createElement("iframe");
-                searchDataFrame.setAttribute("id", "searchDataFrame");
-                searchDataFrame.setAttribute("src", "");
-                document.getElementById("dataFramesContainer").appendChild(searchDataFrame);
-                searchDataPlayer = new YT.Player('searchDataFrame', {
-                    events: {
-                        'onReady': function() {
-                            // 검색이 성공적으로 실행된 경우
-                            searchDataPlayer.cuePlaylist({ listType: "search", list: quickSearchQuery });
-                            resolve();
-                        },
-                        'onStateChange': onSearchDataPlayerStateChange
-                    }
-                });
-                searchDataFrame.setAttribute("src", "https://www.youtube.com/embed/?enablejsapi=1&origin=https://jerrykim1023.github.io");
-            } else if (quickSearchVideosIteration + 1 < quickSearchVideos.length) {
-                quickSearchVideosIteration++;
-                getVideoData(quickSearchVideos[quickSearchVideosIteration]);
-                resolve();
-            }
-        } catch (error) {
-            reject(error); // 오류 발생 시 reject 호출
+  function quickSearch(query) {
+    //console.log("debug: quickSearch(\"" + query + "\")");
+  
+    if (!inBoxSearch && quickSearchVideosIteration + 1 < quickSearchVideos.length) {
+      $("#inputBox").val("").attr("placeholder", loadingPlaceholder);
+    }
+    if (query !== "") {
+      $("#searchProgress").css("display", "flex");
+  
+      quickSearchQuery = query;
+      let searchDataFrame = document.createElement("iframe");
+      searchDataFrame.setAttribute("id", "searchDataFrame");
+      searchDataFrame.setAttribute("src", "");
+      document.getElementById("dataFramesContainer").appendChild(searchDataFrame);
+      searchDataPlayer = new YT.Player('searchDataFrame', {
+        events: {
+          'onReady': onSearchDataPlayerReady,
+          'onStateChange': onSearchDataPlayerStateChange
         }
-    });
-}
+      });
+      searchDataFrame.setAttribute("src", "https://www.youtube.com/embed/?enablejsapi=1");
+    }
+    else if (quickSearchVideosIteration + 1 < quickSearchVideos.length) {
+      quickSearchVideosIteration++;
+      getVideoData(quickSearchVideos[quickSearchVideosIteration]);
+    }
+  }
+  
+  // * This function cues the search results for use in the next function
+  
+  let searchDataPlayerErrors = 0;
+  function onSearchDataPlayerReady() {
+    try {
+      searchDataPlayer.cuePlaylist({listType: "search", list: quickSearchQuery});
+    }
+    catch(e) {
+      searchDataPlayerErrors++;
+      console.log(e);
+      if (searchDataPlayerErrors <= 5) {
+        try {
+          searchDataPlayer.destroy();
+        } catch(e) {};
+        quickSearch(quickSearchQuery);
+      }
+    }
+  }
   
   // * This function uses the search results to add the next video
   
