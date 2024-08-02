@@ -24,7 +24,6 @@ function startVideoProgress() {
   }
   
   let tag = document.createElement('script');
-  
   tag.src = "https://www.youtube.com/iframe_api";
   let firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -33,6 +32,9 @@ function startVideoProgress() {
   let player;
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('youtube', {
+      playerVars: {
+        'origin': 'https://jerrykim1023.github.io' // 'origin' 파라미터 추가
+      },
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange,
@@ -41,7 +43,7 @@ function startVideoProgress() {
     });
     console.log("Debug: Player loaded");
   }
-
+  
   // 비디오가 끝날 때 다음 비디오 자동재생
   function onPlayerStateChange(event) {
     switch(event.data) {
@@ -71,10 +73,6 @@ function startVideoProgress() {
       //buffering
       case 3:
         console.log("buffering");
-        //this is here because video errors cause a 'paused' event
-        //the same occurs when scrolling quickly through a playlist
-        //don't move the videoFunctions.play() stuff here because this is NOT triggered on un-pausing
-        //the 'buffering' event is never triggered on paused/pausing videos so this does not conflict with other things
         videoPaused = false;
         break;
       //cued
@@ -84,8 +82,7 @@ function startVideoProgress() {
         break;
     }
   }
-
-
+  
   // 플레이어가 준비되면 호출되면서 비디오 자동재생
   function onPlayerReady(event) {
     console.log("Debug: onPlayerReady");
@@ -95,6 +92,7 @@ function startVideoProgress() {
     makeSortable();
     videoPreviews();
   }
+  
   function onError(event) {
     console.log(videoPaused);
     videoErrorIds.push(videos[videoIteration][2]);
@@ -102,6 +100,6 @@ function startVideoProgress() {
     forwardVideo();
   }
   
-  //need to initialize per 6/2017 YT backend change
-  $("#youtube").attr("src", "https://www.youtube.com/embed/?enablejsapi=1");
+  // YouTube iframe API 초기화
+  $("#youtube").attr("src", "https://www.youtube.com/embed/?enablejsapi=1&origin=https://jerrykim1023.github.io"); // 'origin' 파라미터 추가
   
